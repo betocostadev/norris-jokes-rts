@@ -1,20 +1,20 @@
-import styled from 'styled-components';
+import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-    width: 80%;
-    margin: auto;
-    .categories{
-        display: flex;
+  width: 80%;
+  margin: auto;
+  .categories{
+      display: flex;
+  }
+  .category{
+    &:hover {
+      cursor: pointer;
+      color: white;
     }
-    .category{
-      &:hover {
-        cursor: pointer;
-        color: white;
-      }
-    }
-    .input-group{
-    }
-    .joker{
-        display: block;
-    }
+  }
+  .input-group{
+  }
+  .joker{
+      display: block;
+  }
 `
