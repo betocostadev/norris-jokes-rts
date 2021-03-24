@@ -1,8 +1,9 @@
 import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-  height: 100vh;
-  width: 100vw;
+  padding-bottom: 2rem;
+  min-height: 100vh;
+  width: 100%;
   background: rgb(144,140,212);
   background: linear-gradient(347deg, rgba(144,140,212,1) 0%, rgba(255,255,255,1) 100%);
   .home-content {
