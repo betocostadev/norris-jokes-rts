@@ -58,4 +58,8 @@ export const HomeContainer = styled.div`
   .joker {
     display: block;
   }
+  .search-gif {
+    margin: 1rem auto;
+    text-align: center;
+  }
 `

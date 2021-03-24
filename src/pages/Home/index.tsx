@@ -74,6 +74,7 @@ const Home: React.FC = () => {
 
     return (
         <HomeContainer>
+          <h1 style={{textAlign: 'center'}}>Norris Jokes</h1>
           <div className="search-box">
             <h2>Find Joke</h2>
             <div className="input-group">
@@ -102,9 +103,11 @@ const Home: React.FC = () => {
               : ''
             }
 
-            <div className="joker">
+            <div className={ isLoading ? "search-gif" : "joker"}>
               {
-                isLoading ? <img src={ChuckGif} alt="load"/> : resultSearch.map( result => (
+                isLoading
+                ? <img className="search-gif" src={ChuckGif} alt="load"/>
+                : resultSearch.map( result => (
                   <div className={ result && result.value ? "joke-card" : "" } key={result.id}>
                       <img src={result.icon_url} alt={result.value}/>
                       <h3>{result.value}</h3>
