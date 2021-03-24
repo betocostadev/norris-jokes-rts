@@ -1,16 +1,22 @@
 import styled from 'styled-components'
 
 export const HomeContainer = styled.div`
-  width: 80%;
-  margin: auto;
-  .search-box {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    h2 {
-      margin: 0.75rem;
+  height: 100vh;
+  width: 100vw;
+  background: rgb(144,140,212);
+  background: linear-gradient(347deg, rgba(144,140,212,1) 0%, rgba(255,255,255,1) 100%);
+  .home-content {
+    margin: auto;
+    width: 70%;
+    .search-box {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      h2 {
+        margin: 0.75rem;
+      }
     }
   }
   .categories {

@@ -74,6 +74,7 @@ const Home: React.FC = () => {
 
     return (
         <HomeContainer>
+          <div className="home-content">
           <h1 style={{textAlign: 'center'}}>Norris Jokes</h1>
           <div className="search-box">
             <h2>Find Joke</h2>
@@ -115,7 +116,7 @@ const Home: React.FC = () => {
                 ))
               }
             </div>
-
+          </div>
         </HomeContainer>
     )
 }
