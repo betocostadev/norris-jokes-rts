@@ -5,7 +5,11 @@ import { jokeByCategoryType, IJoke } from '../../utils/types'
 import ChuckGif from '../../img/giphy.gif'
 import { HomeContainer } from './style'
 
-
+const emptySearchResults = {
+  id: '',
+  icon_url: '',
+  value: ''
+}
 
 const Home: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -62,16 +66,20 @@ const Home: React.FC = () => {
       } catch (error) {
         console.log(error)
       } finally {
+        setResultSearch([emptySearchResults])
+        setSearchJoke('')
         setIsLoading(false)
       }
     }
 
     return (
         <HomeContainer>
-          <h2>Find Joke</h2>
-          <div className="input-group">
-            <input type="text" onChange={e => setSearchJoke(e.target.value)} />
-            <button type="submit" onClick={handleJokes}> Find joke</button>
+          <div className="search-box">
+            <h2>Find Joke</h2>
+            <div className="input-group">
+              <input type="text" onChange={e => setSearchJoke(e.target.value)} />
+              <button type="submit" onClick={handleJokes}> Find joke</button>
+            </div>
           </div>
 
             <div className="categories">
@@ -84,17 +92,20 @@ const Home: React.FC = () => {
                 </ul>
             </div>
 
-            <div>
+            <div className={ categorySelected ? "joke-card" : "" }>
               <img src={categorySelected?.icon_url} alt={categorySelected?.value}/>
               <h3>{categorySelected?.value}</h3>
             </div>
 
-            <p>Find results for:</p>
+            { searchJoke && searchJoke
+              ? <p>Results found for: {searchJoke}</p>
+              : ''
+            }
 
             <div className="joker">
               {
                 isLoading ? <img src={ChuckGif} alt="load"/> : resultSearch.map( result => (
-                  <div key={result.id}>
+                  <div className={ result && result.value ? "joke-card" : "" } key={result.id}>
                       <img src={result.icon_url} alt={result.value}/>
                       <h3>{result.value}</h3>
                   </div>
