@@ -1,5 +1,6 @@
 export type jokeCategoriesApiDataType = {
   data: string[]
+  isActive?: boolean
 }
 
 export type jokeSearchType = {

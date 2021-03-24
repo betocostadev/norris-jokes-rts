@@ -41,13 +41,35 @@ export const HomeContainer = styled.div`
     color: #777;
     border-radius: 0.2rem;
     box-shadow: 2px 4px 5px 1px rgba(0,0,0,0.75);
+    transition: all 0.5s;
     &:hover {
       cursor: pointer;
       color: #222;
       box-shadow: 1px 3px 3px 0px rgba(0,0,0,0.75);
     }
   }
+  .active {
+    color: #222;
+    box-shadow: 1px 3px 3px 0px rgba(0,0,0,0.75);
+  }
   .input-group {
+    input[type=text] {
+      height: 2rem;
+      font-family: 'Chango', cursive;
+      padding: 0.25rem;
+      font-size: 1rem;
+    }
+    button[type=submit] {
+      box-shadow: 1px 3px 3px 0px rgba(0,0,0,0.75);
+      border-radius: 1rem;
+      margin-left: 0.5rem;
+      padding: 0.5rem;
+      font-family: 'Chango', cursive;
+      &:hover {
+        cursor: pointer;
+        background: yellowgreen;
+      }
+    }
   }
   .joke-card {
     background: whitesmoke;

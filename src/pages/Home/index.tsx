@@ -14,10 +14,12 @@ const emptySearchResults = {
 const Home: React.FC = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const [ categoriesJoke, setCategoriesJoke ] = useState([] as any)
-    const [ categorySelected, setCategorySelected ] = useState<jokeByCategoryType>()
-    const [ searchJoke, setSearchJoke ] = useState('')
-    const [ isLoading, setIsLoading ] = useState(false)
+    const [ categorySelected, setCategorySelected ] = useState<jokeByCategoryType | null>()
+    const [ searchJoke, setSearchJoke ] = useState<string>('')
+    const [ searchField, setSearchField ] = useState<string>('')
+    const [ isLoading, setIsLoading ] = useState<boolean>(false)
     const [ resultSearch, setResultSearch ] = useState<IJoke[]>([])
+    const [ activeButton, setActiveButton ] = useState<string>('')
 
     // useEffect( () => {
     //     api.get('jokes/categories').then(
@@ -45,11 +47,18 @@ const Home: React.FC = () => {
 
     useEffect(hook, [])
 
-    async function handleJokes(){
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchField(e.target.value)
+      setSearchJoke(e.target.value)
+    }
+
+    const handleJokes = async () => {
       try {
         setIsLoading(true)
         const response = await api.searchJoke(searchJoke)
         setResultSearch(response.result)
+        setCategorySelected(null)
+        setActiveButton('')
       } catch (error) {
         console.log(error)
       } finally {
@@ -57,9 +66,12 @@ const Home: React.FC = () => {
       }
     }
 
-    async function handleJokeByCategory(term: string){
+    const handleJokeByCategory = async (term: string) => {
       try {
         setIsLoading(true)
+        setSearchJoke('')
+        setSearchField('')
+        setActiveButton(term)
 
         const response = await api.getJokeByCategory(term)
         setCategorySelected(response)
@@ -67,7 +79,6 @@ const Home: React.FC = () => {
         console.log(error)
       } finally {
         setResultSearch([emptySearchResults])
-        setSearchJoke('')
         setIsLoading(false)
       }
     }
@@ -79,8 +90,8 @@ const Home: React.FC = () => {
           <div className="search-box">
             <h2>Find Joke</h2>
             <div className="input-group">
-              <input type="text" onChange={e => setSearchJoke(e.target.value)} />
-              <button type="submit" onClick={handleJokes}> Find joke</button>
+              <input type="text" onChange={handleSearch} value={searchField}/>
+              <button type="submit" onClick={handleJokes} disabled={searchField?.length ? false : true}> Find joke</button>
             </div>
           </div>
 
@@ -88,7 +99,10 @@ const Home: React.FC = () => {
                 <ul>
                   {
                     categoriesJoke.map((joke: string, index: number) => (
-                      <li className="category" key={index} onClick={ () => handleJokeByCategory(joke) }>{joke}</li>
+                      <li
+                        className={activeButton === joke ? "active category" : "category"}
+                        key={index}
+                        onClick={() => handleJokeByCategory(joke) }>{joke}</li>
                     ))
                   }
                 </ul>
@@ -99,8 +113,8 @@ const Home: React.FC = () => {
               <h3>{categorySelected?.value}</h3>
             </div>
 
-            { searchJoke && searchJoke
-              ? <p>Results found for: {searchJoke}</p>
+            { resultSearch && resultSearch[0] && resultSearch[0].id
+              ? <h3>Results found for: {searchJoke}</h3>
               : ''
             }
 
